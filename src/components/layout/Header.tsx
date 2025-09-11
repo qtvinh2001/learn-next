@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { label: "Trang chủ", href: "/" },
@@ -26,22 +27,66 @@ const navItems = [
 export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      className={`w-full absolute top-0 left-0 z-50 transition-colors ${
-        mobileOpen ? "bg-white border-b border-gray-200" : "bg-transparent"
-      }`}
+    <motion.header
+      initial={false}
+      animate={{
+        backgroundColor:
+          scrolled || mobileOpen
+            ? "rgba(255,255,255,0.6)"
+            : "rgba(255,255,255,0)",
+        backdropFilter: scrolled || mobileOpen ? "blur(12px)" : "blur(0px)",
+        boxShadow:
+          scrolled || mobileOpen
+            ? "0 4px 16px rgba(0,0,0,0.1)"
+            : "0 0 0 rgba(0,0,0,0)",
+        marginLeft: scrolled ? screenWidth * 0.1 : 0, // 10% màn hình
+        marginRight: scrolled ? screenWidth * 0.1 : 0,
+        marginTop: scrolled ? "1rem" : "0rem", // cách top một chút
+      }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 overflow-hidden transition-all duration-300
+    ${
+      scrolled
+        ? "rounded-[1rem] sm:rounded-[2rem] md:rounded-[3rem] lg:rounded-[4rem]"
+        : "rounded-none"
+    } 
+  `}
     >
-      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-[200px] py-4 lg:py-6 h-[72px] lg:h-[104px]">
+      <motion.div
+        className={`flex items-center justify-between py-4 lg:py-6 h-[72px] lg:h-[104px]
+          ${
+            scrolled
+              ? "px-4 sm:px-6 lg:px-[100px] xl:px-[200px]"
+              : "px-4 sm:px-6 lg:px-[200px]"
+          } `}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
         {/* Logo */}
         <Logo className="h-8 lg:h-10 w-auto" />
 
-        {/* Desktop Navigation (>=1024px mới hiện) */}
+        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-[56px]">
           {navItems.map((item, index) => (
             <div key={index} className="relative">
@@ -77,20 +122,28 @@ export function Header() {
                 </Link>
               )}
 
-              {/* Dropdown desktop */}
-              {item.hasDropdown && activeDropdown === index && (
-                <div className="absolute top-[36px] left-0 w-[220px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50">
-                  {item.submenu?.map((sub, i) => (
-                    <Link
-                      key={i}
-                      href={sub.href}
-                      className="text-[#112639] text-[16px] leading-6 hover:text-[#1851C1]"
-                    >
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              {/* Dropdown desktop with animation */}
+              <AnimatePresence>
+                {item.hasDropdown && activeDropdown === index && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-[36px] left-0 w-[220px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50"
+                  >
+                    {item.submenu?.map((sub, i) => (
+                      <Link
+                        key={i}
+                        href={sub.href}
+                        className="text-[#112639] text-[16px] leading-6 hover:text-[#1851C1]"
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </nav>
@@ -102,7 +155,7 @@ export function Header() {
           </Button>
         </div>
 
-        {/* Mobile/Tablet button (<1024px) */}
+        {/* Mobile/Tablet button */}
         <button
           className="lg:hidden p-2"
           onClick={() => setMobileOpen((v) => !v)}
@@ -114,68 +167,84 @@ export function Header() {
             <Menu className="h-6 w-6" />
           )}
         </button>
-      </div>
+      </motion.div>
 
-      {/* Mobile + Tablet menu */}
-      {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
-          <nav className="flex flex-col px-6 py-4">
-            {navItems.map((item, index) => (
-              <div key={index} className="flex flex-col">
-                {item.hasDropdown ? (
-                  <>
-                    <button
-                      onClick={() =>
-                        setActiveDropdown(
-                          activeDropdown === index ? null : index
-                        )
-                      }
-                      className={`flex items-center justify-between py-3 text-[16px] ${
+      {/* Mobile + Tablet menu with animation */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden overflow-hidden bg-white border-t border-gray-200 shadow-lg"
+          >
+            <nav className="flex flex-col px-6 py-4">
+              {navItems.map((item, index) => (
+                <div key={index} className="flex flex-col">
+                  {item.hasDropdown ? (
+                    <>
+                      <button
+                        onClick={() =>
+                          setActiveDropdown(
+                            activeDropdown === index ? null : index
+                          )
+                        }
+                        className={`flex items-center justify-between py-3 text-[16px] ${
+                          isActive(item.href)
+                            ? "font-semibold text-[#112639]"
+                            : "font-normal text-[#112639]"
+                        }`}
+                      >
+                        {item.label}
+                        <ChevronDown
+                          className={`h-5 w-5 transition-transform ${
+                            activeDropdown === index ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {activeDropdown === index && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            transition={{ duration: 0.2 }}
+                            className="pl-4 ml-2 mb-2 flex flex-col border-l border-[#C2D9FF]"
+                          >
+                            {item.submenu?.map((sub, i) => (
+                              <Link
+                                key={i}
+                                href={sub.href}
+                                className="py-2 text-[15px] text-[#112639] hover:text-[#1851C1]"
+                                onClick={() => setMobileOpen(false)}
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={`py-3 text-[16px] ${
                         isActive(item.href)
                           ? "font-semibold text-[#112639]"
                           : "font-normal text-[#112639]"
                       }`}
+                      onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
-                      <ChevronDown
-                        className={`h-5 w-5 transition-transform ${
-                          activeDropdown === index ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                    {activeDropdown === index && (
-                      <div className="pl-4 ml-2 mb-2 flex flex-col border-l border-[#C2D9FF]">
-                        {item.submenu?.map((sub, i) => (
-                          <Link
-                            key={i}
-                            href={sub.href}
-                            className="py-2 text-[15px] text-[#112639] hover:text-[#1851C1]"
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            {sub.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className={`py-3 text-[16px] ${
-                      isActive(item.href)
-                        ? "font-semibold text-[#112639]"
-                        : "font-normal text-[#112639]"
-                    }`}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </div>
-            ))}
-          </nav>
-        </div>
-      )}
-    </header>
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }
