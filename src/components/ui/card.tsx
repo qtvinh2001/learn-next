@@ -2,17 +2,45 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /** Root */
-const CardRoot = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
-  ({ className, ...props }, ref) => {
+
+type CardRootProps = React.ComponentProps<"div"> & {
+  hoverScale?: number;
+};
+
+const CardRoot = React.forwardRef<HTMLDivElement, CardRootProps>(
+  ({ className, hoverScale, ...props }, ref) => {
     return (
       <div
         ref={ref}
         data-slot="card"
+        style={
+          hoverScale
+            ? {
+                transition:
+                  "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+              }
+            : undefined
+        }
         className={cn(
           "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
           className
         )}
         {...props}
+        onMouseEnter={(e) => {
+          if (hoverScale) {
+            (
+              e.currentTarget as HTMLDivElement
+            ).style.transform = `scale(${hoverScale})`;
+            (e.currentTarget as HTMLDivElement).style.boxShadow =
+              "0 10px 20px rgba(0,0,0,0.1)";
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (hoverScale) {
+            (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+            (e.currentTarget as HTMLDivElement).style.boxShadow = "";
+          }
+        }}
       />
     );
   }
@@ -85,4 +113,3 @@ export const Card = Object.assign(CardRoot, {
   Action,
   Footer,
 });
-

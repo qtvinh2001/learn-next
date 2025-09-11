@@ -101,6 +101,7 @@ export function SolutionsSection() {
 function SolutionCard({ icon, title, description }: SolutionCard) {
   return (
     <Card
+      hoverScale={1.05}
       className="relative flex flex-col gap-6 p-6 lg:p-8 rounded-2xl lg:rounded-[32px] 
       bg-[#F9FBFF] border border-[#E5EAF4] shadow-none overflow-hidden h-full"
     >
