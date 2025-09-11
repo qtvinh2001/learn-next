@@ -4,18 +4,21 @@ import * as React from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 
+type Step = {
+  id: 1 | 2 | 3 | 4;
+  title: string;
+  description: string;
+  icon: string;
+};
+
 export function ProcessSection() {
-  const steps = [
+  const steps: Step[] = [
     {
       id: 1,
       title: "Xác định vấn đề",
       description:
         "Antco đề cao sự tương tác và thấu hiểu để xác định và tìm ra các thách thức mà đối tác đang gặp phải",
       icon: "/images/Solution.svg",
-      desktop: {
-        container:
-          "absolute left-[200px] top-[360px] flex flex-col items-end text-right",
-      },
     },
     {
       id: 2,
@@ -23,10 +26,6 @@ export function ProcessSection() {
       description:
         "Dựa từ sự thấu hiểu, từ nền tảng công nghệ, Antco sẽ tạo ra những demo cho các giải pháp sáng tạo, phù hợp nhất cho từng sản phẩm.",
       icon: "/images/Solution-2.svg",
-      desktop: {
-        container:
-          "absolute right-[200px] top-[351px] flex flex-col items-start text-left",
-      },
     },
     {
       id: 3,
@@ -34,10 +33,6 @@ export function ProcessSection() {
       description:
         "Antco phối hợp để phát triển và tích hợp giải pháp liên tục giúp khách hàng dễ dàng theo dõi tiến độ và đưa ra phản hồi kịp thời, tối đa hoá chất lượng sản phẩm.",
       icon: "/images/Solution-1.svg",
-      desktop: {
-        container:
-          "absolute left-[200px] bottom-[160px] flex flex-col items-end text-right",
-      },
     },
     {
       id: 4,
@@ -45,127 +40,156 @@ export function ProcessSection() {
       description:
         "Antco xây dựng các đề xuất giải pháp chi tiết để đáp ứng và cải tiến sản phẩm theo sự đổi mới công nghệ cho đối tác.",
       icon: "/images/Solution-3.svg",
-      desktop: {
-        container:
-          "absolute right-[200px] bottom-[160px] flex flex-col items-start text-left",
-      },
     },
   ];
 
+  const StepCard = ({
+    s,
+    align = "left",
+    className = "",
+  }: {
+    s: Step;
+    align?: "left" | "right";
+    className?: string;
+  }) => (
+    <Card
+      className={[
+        "bg-[#F5F8FF] border-2 border-white shadow-sm rounded-[16px] p-4",
+        "md:rounded-[20px] md:p-5",
+        "lg:rounded-[24px] lg:p-6",
+        "lg:w-[426px]",
+        className,
+      ].join(" ")}
+    >
+      <div className={align === "right" ? "lg:text-right" : ""}>
+        <h3 className="font-semibold text-[#112639] mb-2 text-[18px] leading-[22px] md:text-[20px] md:leading-[24px] lg:text-[24px] lg:leading-[32px]">
+          {s.title}
+        </h3>
+        <p className="text-[#7B849F] text-[14px] leading-5 md:text-[15px] md:leading-[24px]">
+          {s.description}
+        </p>
+      </div>
+    </Card>
+  );
+
+  const IconBadge = ({ src, alt }: { src: string; alt: string }) => (
+    <div
+      className="flex items-center justify-center bg-white border-[6px] border-white/40 rounded-full shrink-0"
+      style={{ width: "var(--icon)", height: "var(--icon)" }}
+    >
+      <Image src={src} alt={alt} width={34} height={34} />
+    </div>
+  );
+
   return (
-    <section className="w-full bg-[#DEEAFB] py-16 lg:py-[100px] relative">
-      <div className="max-w-[1920px] mx-auto px-4 lg:px-[100px] relative">
+    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 lg:pb-0">
+      <div className="mx-auto max-w-[1918px] px-4 md:px-6 relative">
         {/* Header */}
-        <header className="text-center max-w-[1000px] mx-auto mb-12 lg:mb-[200px]">
-          <h2 className="text-[32px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
+        <header className="text-center mx-auto max-w-[1006px] pt-8 md:pt-12 lg:pt-[100px] mb-8 md:mb-10 lg:mb-6">
+          <h2 className="text-[#0749AD] font-semibold leading-[1.3] mb-3 md:mb-4 text-[28px] md:text-[40px] lg:text-[56px]">
             Quy trình phát triển 4 bước
           </h2>
-          <p className="mt-4 text-[#7B849F] text-sm lg:text-[20px] leading-[160%]">
+          <p className="text-[#7B849F] mx-auto text-sm md:text-base lg:text-[20px] lg:leading-8">
             Antco cung cấp quy trình phát triển AI linh hoạt, giúp doanh nghiệp
             dễ dàng tích hợp AI vào các hệ thống hiện có như CRM, ERP và nền
             tảng thương mại điện tử.
           </p>
         </header>
 
-        {/* ===== Desktop Layout ===== */}
-        <div className="hidden lg:block relative h-[1112px]">
-          {/* Circle Layers */}
-          <div className="absolute w-[680px] h-[680px] left-1/2 top-[300px] -translate-x-1/2">
-            {/* Outer circle */}
-            <div className="absolute inset-0 rounded-full border-[8px] border-white/40"></div>
-            {/* Middle circle */}
-            <div className="absolute inset-[45px] rounded-full bg-[#4491FF]/20"></div>
-            {/* Inner circle */}
-            <div className="absolute inset-[145px] rounded-full border border-white/40"></div>
-            {/* Center Logo */}
-            <div className="absolute inset-[200px] rounded-full bg-white flex items-center justify-center shadow-md">
-              <Image
-                src="/images/logo_icon.svg"
-                alt="Antco Logo"
-                width={120}
-                height={120}
-                className="object-contain"
-              />
-            </div>
-          </div>
+        {/* 1 WRAP cho cả image + cards (chỉ 1 process.svg) */}
+        <div
+          className="
+            relative mx-auto max-w-[1918px]
+            [--d:380px] md:[--d:520px] lg:[--d:clamp(440px,42vw,680px)]
+            [--card-w:min(426px,32vw)]
+            [--gap-x:clamp(16px,2vw,24px)]
+            [--icon-gap:clamp(10px,1.2vw,16px)]
+            [--icon:clamp(60px,9vw,72px)]
+            lg:h-[calc(var(--d)+420px)]
+          "
+        >
+          {/* process.svg — CHỈ MỘT LẦN */}
+          <Image
+            src="/images/process.svg"
+            alt="Process"
+            priority
+            width={680}
+            height={680}
+            className="block mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2"
+            style={{
+              width: "var(--d)",
+              height: "var(--d)",
+              // desktop: đặt thấp hơn một chút để khớp bố cục
+              top: "calc(50% - var(--d)/2 + min(60px, calc(var(--d)*0.09)))",
+            }}
+          />
 
-          {/* Arrows */}
-          <div className="absolute w-7 h-6 bg-white rounded rotate-90 left-1/2 top-0 -translate-x-1/2"></div>
-          <div className="absolute w-7 h-6 bg-white rounded -rotate-90 left-1/2 bottom-0 -translate-x-1/2"></div>
-          <div className="absolute w-7 h-6 bg-white rounded rotate-180 top-1/2 right-0 -translate-y-1/2"></div>
-          <div className="absolute w-7 h-6 bg-white rounded top-1/2 left-0 -translate-y-1/2"></div>
-
-          {/* Steps */}
-          {steps.map((step) => (
-            <div key={step.id} className={step.desktop.container}>
-              {/* Icon Circle */}
-              <div className="w-[100px] h-[100px] rounded-full bg-white border-[14px] border-white/40 flex items-center justify-center shadow-md mb-6">
-                <Image
-                  src={step.icon}
-                  alt={step.title}
-                  width={56}
-                  height={56}
-                  className="object-contain"
-                />
-              </div>
-              {/* Card */}
-              <Card className="w-[426px] bg-[#F5F8FF] border-2 border-white rounded-[24px] p-6 flex flex-col gap-4">
-                <Card.Title className="text-[24px] font-semibold text-[#112639]">
-                  {step.title}
-                </Card.Title>
-                <Card.Description className="text-[#7B849F] text-[14px] leading-[20px]">
-                  {step.description}
-                </Card.Description>
-              </Card>
-            </div>
-          ))}
-        </div>
-
-        {/* ===== Mobile Layout ===== */}
-        <div className="lg:hidden flex flex-col items-center gap-10">
-          {/* Circle Layers */}
-          <div className="relative w-[364px] h-[364px]">
-            <div className="absolute inset-0 rounded-full border-4 border-white/40"></div>
-            <div className="absolute inset-10 rounded-full bg-[#4491FF]/20"></div>
-            <div className="absolute inset-[80px] rounded-full bg-white flex items-center justify-center">
-              <Image
-                src="/images/logo_icon.svg"
-                alt="Antco Logo"
-                width={80}
-                height={80}
-                className="object-contain"
-              />
-            </div>
-          </div>
-
-          {/* Step Cards stacked */}
-          <div className="flex flex-col gap-6 w-full">
-            {steps.map((step) => (
-              <Card
-                key={`mobile-${step.id}`}
-                className="flex flex-row gap-4 bg-[#F5F8FF] border-2 border-white rounded-xl p-5 items-start"
+          {/* MOBILE & TABLET (<lg): icon HIỆN và đặt bên trái card; height theo nội dung */}
+          <div className="lg:hidden mt-8 md:mt-10 space-y-5 md:space-y-6">
+            {steps.map((s) => (
+              <div
+                key={s.id}
+                className="flex items-start gap-[var(--icon-gap)]"
               >
-                {/* Icon Circle */}
-                <div className="w-[60px] h-[60px] rounded-full bg-white border-[6px] border-white/40 flex items-center justify-center">
-                  <Image
-                    src={step.icon}
-                    alt={step.title}
-                    width={34}
-                    height={34}
-                    className="object-contain"
-                  />
+                <IconBadge src={s.icon} alt={s.title} />
+                <div className="flex-1">
+                  <StepCard s={s} />
                 </div>
-                {/* Text */}
-                <div>
-                  <Card.Title className="text-lg font-semibold text-[#112639]">
-                    {step.title}
-                  </Card.Title>
-                  <Card.Description className="text-sm text-[#7B849F] mt-2">
-                    {step.description}
-                  </Card.Description>
-                </div>
-              </Card>
+              </div>
             ))}
+          </div>
+
+          {/* DESKTOP (≥lg): icon ẨN, chỉ hiện 4 card quanh vòng tròn; container có height theo var(--d) */}
+          <div className="hidden lg:block">
+            {/* Trái trên */}
+            <div
+              className="absolute"
+              style={{
+                left: "calc(50% - var(--d)/2 - var(--gap-x))",
+                top: "calc(50% - var(--d)/2 + calc(var(--d)*0.083))",
+                width: "var(--card-w)",
+                transform: "translateX(-100%)",
+              }}
+            >
+              <StepCard s={steps[0]} align="right" />
+            </div>
+
+            {/* Trái dưới */}
+            <div
+              className="absolute"
+              style={{
+                left: "calc(50% - var(--d)/2 - var(--gap-x))",
+                top: "calc(50% - var(--d)/2 + calc(var(--d)*0.73))",
+                width: "var(--card-w)",
+                transform: "translateX(-100%)",
+              }}
+            >
+              <StepCard s={steps[2]} align="right" />
+            </div>
+
+            {/* Phải trên */}
+            <div
+              className="absolute"
+              style={{
+                left: "calc(50% + var(--d)/2 + var(--gap-x))",
+                top: "calc(50% - var(--d)/2 + calc(var(--d)*0.069))",
+                width: "var(--card-w)",
+              }}
+            >
+              <StepCard s={steps[1]} align="left" />
+            </div>
+
+            {/* Phải dưới */}
+            <div
+              className="absolute"
+              style={{
+                left: "calc(50% + var(--d)/2 + var(--gap-x))",
+                top: "calc(50% - var(--d)/2 + calc(var(--d)*0.73))",
+                width: "var(--card-w)",
+              }}
+            >
+              <StepCard s={steps[3]} align="left" />
+            </div>
           </div>
         </div>
       </div>

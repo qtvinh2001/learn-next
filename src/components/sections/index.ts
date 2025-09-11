@@ -1,10 +1,10 @@
 export { CompanyIntro } from "./CompanyIntro";
-export { ProcessSection} from "./ProcessSection"
+export { ProcessSection } from "./ProcessSection";
 export { EcoSystemSection } from "./EcoSystemSection";
 export { PartnersSection } from "./PartnersSection";
 export { SolutionsSection } from "./SolutionsSection";
 export { FeaturesSection } from "./FeaturesSection";
-export { MissionSection } from "./MissionSection";  
+export { MissionSection } from "./MissionSection";
 export { MembersSection } from "./MembersSection";
 export { AboutUsSection } from "./AboutUsSection";
-export {ConsultationSection} from  "./ConsultationSection"
+export { ConsultationSection } from "./ConsultationSection";

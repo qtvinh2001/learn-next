@@ -11,18 +11,35 @@ export function CompanyIntro() {
 
   const handleSubmit = () => {
     console.log("Email submitted:", email);
-    // Handle email submission logic here
   };
 
   return (
     <div className="bg-[url('/images/company_intro_background.png')] order-0 bg-no-repeat bg-cover bg-[-100px_center]">
       {/* Header */}
-      <Header />
-      <section className="relative z-10 pt-8 pb-16 md:pt-20 md:pb-32">
+      <div className="relative z-30">
+        <Header />
+      </div>
+
+      <section
+        className="
+          relative z-10
+          pt-28 sm:pt-32 md:pt-20
+          pb-16 md:pb-32
+        "
+      >
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-12 md:gap-16 items-center min-h-[70vh]">
+          <div
+            className="
+              grid grid-cols-1
+              md:grid-cols-[1.2fr_0.8fr]
+              gap-12 md:gap-16 items-center
+              min-h-[70vh]
+              /* Tránh đẩy nội dung lệch ở mobile */
+              xl:mr-36
+            "
+          >
             {/* Content Section */}
-            <div className="space-y-8 md:space-y-12">
+            <div className="space-y-8 mt-8 md:space-y-12">
               {/* Main Headings */}
               <div className="space-y-2">
                 <Heading
@@ -86,8 +103,7 @@ export function CompanyIntro() {
               </div>
             </div>
 
-            {/* Visual Section - Visible on larger screens */}
-            <div className="hidden md:block relative"></div>
+            {/* (Nếu có cột phải/ảnh minh hoạ thì đặt ở đây) */}
           </div>
         </Container>
       </section>
