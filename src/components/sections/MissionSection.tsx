@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import { Amphora } from "lucide-react";
 
 const features = [
   {
@@ -86,6 +87,7 @@ export function MissionSection() {
 
             <div className="flex flex-wrap items-start gap-4 pt-2">
               <Button
+                withArrow
                 className="
                   h-14 min-w-[127px] px-6 rounded-full text-white
                   bg-[linear-gradient(96.96deg,#2BA9FA_0.85%,#1851C1_97.4%)]
@@ -97,6 +99,7 @@ export function MissionSection() {
               </Button>
 
               <Button
+                withArrow
                 variant="ghost"
                 className="
                   h-14 min-w-[184px]

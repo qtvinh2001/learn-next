@@ -39,7 +39,7 @@ export function AboutUsSection() {
           className="
           absolute z-10
           bottom-0 left-1/2 -translate-x-1/2
-          w-[90%] max-w-[420px]
+          w-[80%] max-w-[420px]
           sm:-bottom-32                          
           md:bottom-0
           lg:top-1/2 lg:-bottom-28 lg:right-10 lg:left-auto
@@ -65,8 +65,8 @@ export function AboutUsSection() {
               text-[20px] sm:text-[24px] md:text-[32px] lg:text-[40px]
             "
           >
-            Khai mở ra giải pháp phù hợp nhất cho
-            <br className="hidden md:block" />
+            Khai mở ra giải pháp phù hợp nhất cho{" "}
+            <br className="hidden md:block " />
             tổ chức của bạn
           </h2>
 
@@ -85,6 +85,7 @@ export function AboutUsSection() {
           </p>
 
           <Button
+            withArrow
             className="
               mt-5 md:mt-6 h-14 px-6 rounded-full
               bg-white text-[#112639] hover:bg-white/90

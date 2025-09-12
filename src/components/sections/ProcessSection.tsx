@@ -115,12 +115,11 @@ export function ProcessSection() {
             priority
             width={680}
             height={680}
-            className="block mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2"
+            className="block mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2 "
             style={{
               width: "var(--d)",
               height: "var(--d)",
-              // desktop: đặt thấp hơn một chút để khớp bố cục
-              top: "calc(50% - var(--d)/2 + min(60px, calc(var(--d)*0.09)))",
+              top: "calc(50% - var(--d)/2 - min(40px, calc(var(--d)*0.0005)))", // đẩy lên trên
             }}
           />
 

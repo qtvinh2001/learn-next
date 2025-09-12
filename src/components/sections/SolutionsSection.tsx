@@ -68,10 +68,10 @@ export function SolutionsSection() {
     <section className="w-full bg-white px-4 md:px-8 lg:px-[200px] py-16 lg:py-[100px] flex flex-col items-center gap-16">
       {/* Header */}
       <header className="max-w-[1005px] text-center flex flex-col gap-5">
-        <h2 className="text-[28px] md:text-[40px] lg:text-[56px] font-semibold text-primary-3 leading-[130%]">
+        <h2 className="text-[28px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
           Antco - Giải pháp công nghệ
         </h2>
-        <p className="text-sm md:text-base lg:text-[20px] text-neutral-3 leading-[160%]">
+        <p className="text-sm md:text-base lg:text-[20px] text-[#7B849F] leading-[160%]">
           Antco cung cấp các giải pháp AI thiết thực thúc đẩy tăng trưởng kinh
           doanh.
         </p>
@@ -101,13 +101,20 @@ export function SolutionsSection() {
 function SolutionCard({ icon, title, description }: SolutionCard) {
   return (
     <Card
-      hoverScale={1.05}
-      className="relative flex flex-col gap-6 p-6 lg:p-8 rounded-2xl lg:rounded-[32px] 
-      bg-[#F9FBFF] border border-[#E5EAF4] shadow-none overflow-hidden h-full"
+      hoverScale={1.1}
+      className="
+    relative isolate
+    flex flex-col items-start
+    p-8 gap-9
+    rounded-[32px]
+    bg-[rgba(43,144,250,0.07)] border-0 shadow-none
+    overflow-visible
+    lg:h-[380px]
+  "
     >
-      <Card.Content className="p-0 flex flex-col gap-6 flex-1">
-        {/* Icon */}
-        <div className="relative w-20 h-20 flex items-center justify-center rounded-full bg-white z-10">
+      <Card.Content className="p-0 flex flex-col gap-9 flex-1">
+        {/* Icon wrapper (Frame 178) */}
+        <div className="relative w-[100px] h-[100px] flex items-center justify-center rounded-full bg-white z-10">
           <Image
             src={icon}
             alt={title}
@@ -117,14 +124,12 @@ function SolutionCard({ icon, title, description }: SolutionCard) {
           />
         </div>
 
-        {/* Text */}
-        <div className="flex flex-col gap-3 flex-1">
-          <h3 className="text-base md:text-lg lg:text-2xl font-semibold text-neutral-1">
+        {/* Text (Frame 179) */}
+        <div className="flex flex-col gap-4 flex-1">
+          <h3 className="text-[24px] leading-8 font-semibold text-[#112639]">
             {title}
           </h3>
-          <p className="text-sm md:text-base text-neutral-3 leading-6 flex-1">
-            {description}
-          </p>
+          <p className="text-[14px] leading-5 text-[#7B849F]">{description}</p>
         </div>
       </Card.Content>
     </Card>
