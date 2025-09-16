@@ -1,4 +1,3 @@
-// app/components/sections/footer.tsx
 "use client";
 
 import Image from "next/image";
@@ -38,97 +37,14 @@ export function Footer() {
   return (
     <footer className="w-full">
       {/* TOP AREA */}
-      <div className="w-full bg-white">
-        <div
-          className="
-            mx-auto w-full max-w-[1920px]
-            px-4 sm:px-6
-            py-8 sm:py-10
-            lg:px-10 lg:py-12
-            2xl:px-0 2xl:py-0
-            relative
-            2xl:h-[396px]
-          "
-        >
-          {/* === MOBILE FLOW (giữ nguyên) === */}
-          <div className="lg:hidden flex flex-col gap-10">
-            <div className="flex flex-col gap-6">
-              <Logo className="h-14 w-auto mr-auto" />
-              <p className="max-w-[318px] text-[#7B849F] text-sm sm:text-base leading-6">
-                Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
-                nhân tạo với giải pháp tùy chỉnh
-              </p>
-              <div className="flex items-center gap-4">
-                {socialIcons.map((icon) => (
-                  <Image
-                    key={icon.alt}
-                    src={icon.src}
-                    alt={icon.alt}
-                    width={40}
-                    height={40}
-                    className="h-10 w-10"
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-x-10 gap-y-10">
-              <div>
-                <h3 className="text-[#112639] font-semibold text-2xl leading-8">
-                  {cols[0].title}
-                </h3>
-                <ul className="mt-4 flex flex-col gap-4">
-                  {cols[0].links.map((l) => (
-                    <li
-                      key={l}
-                      className="text-[#7B849F] text-base leading-6 hover:text-[#1792ED] cursor-pointer"
-                    >
-                      {l}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-[#112639] font-semibold text-2xl leading-8">
-                  {cols[1].title}
-                </h3>
-                <ul className="mt-4 flex flex-col gap-4">
-                  {cols[1].links.map((l) => (
-                    <li
-                      key={l}
-                      className="text-[#7B849F] text-base leading-6 hover:text-[#1792ED] cursor-pointer"
-                    >
-                      {l}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="col-span-2">
-                <h3 className="text-[#112639] font-semibold text-2xl leading-8">
-                  {cols[2].title}
-                </h3>
-                <ul className="mt-4 flex flex-col gap-4">
-                  {cols[2].links.map((l) => (
-                    <li
-                      key={l}
-                      className="text-[#7B849F] text-base leading-6 hover:text-[#1792ED] cursor-pointer"
-                    >
-                      {l}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* === LG & XL: GRID (responsive, chữ nhỏ hơn) === */}
-          <div className="hidden lg:grid 2xl:hidden grid-cols-1 lg:grid-cols-[minmax(0,360px)_1fr] gap-12">
-            {/* Left block */}
-            <div className="flex flex-col gap-6">
+      <div className="bg-white">
+        <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 py-10 lg:py-12 2xl:py-0 relative">
+          {/* GRID cho lg–xl */}
+          <div className="lg:grid 2xl:hidden grid-cols-1 lg:grid-cols-[360px_1fr] gap-12">
+            {/* Left */}
+            <div className="flex flex-col items-start gap-6">
               <Logo className="h-12 w-auto" />
-              <p className="max-w-[360px] text-[#7B849F] text-[15px] lg:text-[15px] xl:text-[15px] leading-6">
+              <p className="max-w-[360px] text-[#7B849F] text-[15px] leading-6">
                 Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
                 nhân tạo với giải pháp tùy chỉnh
               </p>
@@ -145,24 +61,18 @@ export function Footer() {
                 ))}
               </div>
             </div>
-
-            {/* Right columns */}
-            <div className="grid grid-cols-3 gap-x-12 gap-y-10">
+            {/* Right */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
               {cols.map((col) => (
-                <div key={col.title} className="min-w-0">
-                  <h3
-                    className="text-[#112639] font-semibold leading-7
-                                  text-[18px] lg:text-[20px] xl:text-[22px]"
-                  >
+                <div key={col.title} className="flex flex-col gap-4">
+                  <h3 className="text-[#112639] font-semibold text-lg leading-7">
                     {col.title}
                   </h3>
-                  <ul className="mt-4 flex flex-col gap-3">
+                  <ul className="flex flex-col gap-3">
                     {col.links.map((l) => (
                       <li
                         key={l}
-                        className="text-[#7B849F] leading-6
-                                   text-[14px] lg:text-[14.5px] xl:text-[15px]
-                                   hover:text-[#1792ED] cursor-pointer"
+                        className="text-[#7B849F] text-sm leading-6 hover:text-[#1792ED]"
                       >
                         {l}
                       </li>
@@ -173,91 +83,64 @@ export function Footer() {
             </div>
           </div>
 
-          {/* === 2XL: ABSOLUTE THEO FIGMA (font đúng 24/16) === */}
-          {/* Logo block (Frame 170) */}
-          <div className="hidden 2xl:block 2xl:absolute 2xl:left-[200px] 2xl:top-[82px]">
-            <Logo className="h-14 w-auto" />
-          </div>
-
-          {/* Description */}
-          <p className="hidden 2xl:block 2xl:absolute 2xl:left-[200px] 2xl:top-[164.83px] 2xl:w-[318px] text-[#7B849F] text-[16px] leading-6">
-            Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
-            nhân tạo với giải pháp tùy chỉnh
-          </p>
-
-          {/* Social icons row (Frame 161) */}
-          <div className="hidden 2xl:flex 2xl:absolute 2xl:left-[200px] 2xl:top-[274px] gap-4">
-            {socialIcons.map((icon) => (
-              <Image
-                key={icon.alt}
-                src={icon.src}
-                alt={icon.alt}
-                width={40}
-                height={40}
-                className="h-10 w-10"
-              />
-            ))}
-          </div>
-
-          {/* Right columns container (Frame 245) */}
-          <div className="hidden 2xl:flex 2xl:absolute 2xl:left-[976px] 2xl:top-[82px] 2xl:w-[716px] 2xl:h-[232px] 2xl:gap-[100px]">
-            {/* Col 1: Sản phẩm */}
-            <div className="flex flex-col gap-4 min-w-[115px]">
-              <h3 className="text-[#112639] font-semibold text-[24px] leading-8">
-                {cols[0].title}
-              </h3>
-              <ul className="flex flex-col gap-4">
-                {cols[0].links.map((l) => (
-                  <li
-                    key={l}
-                    className="text-[#7B849F] text-[16px] leading-6 hover:text-[#1792ED] cursor-pointer"
-                  >
-                    {l}
-                  </li>
-                ))}
-              </ul>
+          {/* 2XL absolute layout theo Figma nhưng responsive */}
+          <div className="hidden 2xl:block relative w-full max-w-[1920px] h-[396px] mx-auto">
+            {/* Logo */}
+            <div className="absolute left-[10vw] top-[82px]">
+              <Logo className="h-14 w-auto" />
             </div>
-
-            {/* Col 2: Về công ty */}
-            <div className="flex flex-col gap-4 min-w-[124px]">
-              <h3 className="text-[#112639] font-semibold text-[24px] leading-8">
-                {cols[1].title}
-              </h3>
-              <ul className="flex flex-col gap-4">
-                {cols[1].links.map((l) => (
-                  <li
-                    key={l}
-                    className="text-[#7B849F] text-[16px] leading-6 hover:text-[#1792ED] cursor-pointer"
-                  >
-                    {l}
-                  </li>
-                ))}
-              </ul>
+            {/* Desc */}
+            <p className="absolute left-[10vw] top-[165px] max-w-[318px] text-[#7B849F] text-[16px] leading-6">
+              Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
+              nhân tạo với giải pháp tùy chỉnh
+            </p>
+            {/* Social */}
+            <div className="absolute left-[10vw] top-[274px] flex gap-4">
+              {socialIcons.map((icon) => (
+                <Image
+                  key={icon.alt}
+                  src={icon.src}
+                  alt={icon.alt}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10"
+                />
+              ))}
             </div>
-
-            {/* Col 3: Dành cho dev */}
-            <div className="flex flex-col gap-4 min-w-[277px]">
-              <h3 className="text-[#112639] font-semibold text-[24px] leading-8">
-                {cols[2].title}
-              </h3>
-              <ul className="flex flex-col gap-4">
-                {cols[2].links.map((l) => (
-                  <li
-                    key={l}
-                    className="text-[#7B849F] text-[16px] leading-6 hover:text-[#1792ED] cursor-pointer"
-                  >
-                    {l}
-                  </li>
-                ))}
-              </ul>
+            {/* Links */}
+            <div className="absolute right-[10vw] top-[82px] flex gap-[6vw]">
+              {cols.map((col) => (
+                <div key={col.title} className="flex flex-col gap-4">
+                  <h3 className="text-[#112639] font-semibold text-[24px] leading-8">
+                    {col.title}
+                  </h3>
+                  <ul className="flex flex-col gap-4">
+                    {col.links.map((l) => (
+                      <li
+                        key={l}
+                        className="text-[#7B849F] text-[16px] leading-6 hover:text-[#1792ED]"
+                      >
+                        {l}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="w-full bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] px-4 sm:px-6 lg:px-[170px] py-4 lg:py-6">
-        <div className="mx-auto max-w-[1920px] flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
+      <div className="w-full bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] py-4 lg:py-6">
+        <div
+          className="
+            w-full max-w-[1920px] mx-auto
+            px-4 sm:px-6 lg:px-[clamp(40px,10vw,170px)]
+            flex flex-col items-start gap-2
+            sm:flex-row sm:items-center sm:justify-between
+          "
+        >
           <p className="text-white text-sm">
             © 2025 Antco, Inc. | All rights reserved
           </p>

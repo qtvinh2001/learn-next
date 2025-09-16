@@ -34,7 +34,7 @@ export function EcoSystemSection() {
         {/* CTA Button */}
         <Button
           withArrow
-          className="px-6 py-4 h-auto bg-white hover:bg-white/90 text-neutral-1 
+          className="px-6 py-4 h-auto text-[#112639] bg-white hover:bg-white/90 text-neutral-1 
                      rounded-full font-semibold text-sm md:text-base lg:text-[16px] leading-6"
         >
           Tìm hiểu thêm

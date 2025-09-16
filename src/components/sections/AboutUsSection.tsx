@@ -28,9 +28,9 @@ export function AboutUsSection() {
           className="
             pointer-events-none select-none
             absolute -z-0
-            left-5 md:left-32
-            top-[-18%] md:top-[-22%]
-            w-[65%] md:w-[42%] lg:w-[41%]
+            left-24 md:left-32
+            top-[-0%] md:top-[-0%]
+            w-[50%] md:w-[35%] lg:w-[25%]
             h-auto opacity-100
           "
         />

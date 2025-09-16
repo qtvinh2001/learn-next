@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 type Member = {
@@ -95,12 +97,8 @@ export function MembersSection() {
                 relative w-full
                 h-[234px] md:h-[458px]
                 rounded-[16px] md:rounded-[32px]
-                overflow-hidden bg-white
-                before:content-[''] before:absolute before:inset-0
-                before:rounded-[16px] md:before:rounded-[32px]
-                before:p-[1px] md:before:p-[2px]
-                before:bg-[linear-gradient(126deg,#CCEBFF_0%,#FFFFFF_100%)]
-                before:-z-10
+                overflow-hidden
+                bg-gradient-to-br from-[#EAF6FF] via-[#F9FCFF] to-white
               "
             >
               {/* glow */}

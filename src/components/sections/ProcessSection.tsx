@@ -62,10 +62,10 @@ export function ProcessSection() {
       ].join(" ")}
     >
       <div className={align === "right" ? "lg:text-right" : ""}>
-        <h3 className="font-semibold text-[#112639] mb-2 text-[18px] leading-[22px] md:text-[20px] md:leading-[24px] lg:text-[24px] lg:leading-[32px]">
+        <h3 className="font-semibold text-[#112639] mb-2 text-[16px] leading-[22px] md:text-[20px] md:leading-[24px] lg:text-[24px] lg:leading-[32px]">
           {s.title}
         </h3>
-        <p className="text-[#7B849F] text-[14px] leading-5 md:text-[15px] md:leading-[24px]">
+        <p className="text-[#7B849F] text-[14px] leading-5 md:text-[14px] md:leading-[24px]">
           {s.description}
         </p>
       </div>
@@ -82,7 +82,7 @@ export function ProcessSection() {
   );
 
   return (
-    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 lg:pb-0">
+    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 lg:pb-0 overflow-x-hidden">
       <div className="mx-auto max-w-[1918px] px-4 md:px-6 relative">
         {/* Header */}
         <header className="text-center mx-auto max-w-[1006px] pt-8 md:pt-12 lg:pt-[100px] mb-8 md:mb-10 lg:mb-6">
@@ -96,7 +96,7 @@ export function ProcessSection() {
           </p>
         </header>
 
-        {/* 1 WRAP cho cả image + cards (chỉ 1 process.svg) */}
+        {/* Wrap image + cards */}
         <div
           className="
             relative mx-auto max-w-[1918px]
@@ -105,25 +105,25 @@ export function ProcessSection() {
             [--gap-x:clamp(16px,2vw,24px)]
             [--icon-gap:clamp(10px,1.2vw,16px)]
             [--icon:clamp(60px,9vw,72px)]
-            lg:h-[calc(var(--d)+420px)]
+            lg:h-[calc(var(--d)+100px)]
           "
         >
-          {/* process.svg — CHỈ MỘT LẦN */}
+          {/* process.svg — 1 lần */}
           <Image
             src="/images/process.svg"
             alt="Process"
             priority
             width={680}
             height={680}
-            className="block mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2 "
+            className="block mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2"
             style={{
               width: "var(--d)",
               height: "var(--d)",
-              top: "calc(50% - var(--d)/2 - min(40px, calc(var(--d)*0.0005)))", // đẩy lên trên
+              top: "calc(50% - var(--d)/2 - min(40px, calc(var(--d)*0.0005)))",
             }}
           />
 
-          {/* MOBILE & TABLET (<lg): icon HIỆN và đặt bên trái card; height theo nội dung */}
+          {/* Mobile & Tablet */}
           <div className="lg:hidden mt-8 md:mt-10 space-y-5 md:space-y-6">
             {steps.map((s) => (
               <div
@@ -138,15 +138,15 @@ export function ProcessSection() {
             ))}
           </div>
 
-          {/* DESKTOP (≥lg): icon ẨN, chỉ hiện 4 card quanh vòng tròn; container có height theo var(--d) */}
+          {/* Desktop */}
           <div className="hidden lg:block">
             {/* Trái trên */}
             <div
-              className="absolute"
+              className="absolute max-w-full"
               style={{
                 left: "calc(50% - var(--d)/2 - var(--gap-x))",
                 top: "calc(50% - var(--d)/2 + calc(var(--d)*0.083))",
-                width: "var(--card-w)",
+                width: "min(100%, var(--card-w))",
                 transform: "translateX(-100%)",
               }}
             >
@@ -155,11 +155,11 @@ export function ProcessSection() {
 
             {/* Trái dưới */}
             <div
-              className="absolute"
+              className="absolute max-w-full"
               style={{
                 left: "calc(50% - var(--d)/2 - var(--gap-x))",
                 top: "calc(50% - var(--d)/2 + calc(var(--d)*0.73))",
-                width: "var(--card-w)",
+                width: "min(100%, var(--card-w))",
                 transform: "translateX(-100%)",
               }}
             >
@@ -168,11 +168,11 @@ export function ProcessSection() {
 
             {/* Phải trên */}
             <div
-              className="absolute"
+              className="absolute max-w-full"
               style={{
                 left: "calc(50% + var(--d)/2 + var(--gap-x))",
                 top: "calc(50% - var(--d)/2 + calc(var(--d)*0.069))",
-                width: "var(--card-w)",
+                width: "min(100%, var(--card-w))",
               }}
             >
               <StepCard s={steps[1]} align="left" />
@@ -180,11 +180,11 @@ export function ProcessSection() {
 
             {/* Phải dưới */}
             <div
-              className="absolute"
+              className="absolute max-w-full"
               style={{
                 left: "calc(50% + var(--d)/2 + var(--gap-x))",
                 top: "calc(50% - var(--d)/2 + calc(var(--d)*0.73))",
-                width: "var(--card-w)",
+                width: "min(100%, var(--card-w))",
               }}
             >
               <StepCard s={steps[3]} align="left" />

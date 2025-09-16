@@ -34,7 +34,6 @@ export function FeaturesSection() {
 
   const handleSend = () => {
     if (!inputValue.trim()) return;
-
     setMessages((prev) => [...prev, { role: "user", text: inputValue }]);
 
     setTimeout(() => {
@@ -69,7 +68,7 @@ export function FeaturesSection() {
   const topNav = [SettingsIcon, ShareIcon, Grid3X3Icon];
 
   return (
-    <section className="flex flex-col items-center w-full px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-[100px] gap-12 md:gap-16">
+    <section className="flex flex-col items-center w-full px-4 sm:px-6 md:px-8 lg:px-16 py-12 md:py-16 lg:py-[100px] gap-8 md:gap-12 lg:gap-16">
       {/* Header */}
       <header className="flex flex-col items-center gap-5 text-center w-full">
         <h2 className="text-[28px] md:text-[40px] lg:text-[56px] font-semibold leading-[130%] text-[#0749AD]">
@@ -83,27 +82,37 @@ export function FeaturesSection() {
       </header>
 
       {/* Content container */}
-      <div className="w-full max-w-[1520px] bg-[#EEF2F8] border-4 lg:border-[16px] border-[#dfe5ee30] rounded-[10px] lg:rounded-[40px] overflow-hidden">
+      <div className="w-full max-w-[1520px] bg-[#EEF2F8] border-4 lg:border-[16px] border-[#dfe5ee30] rounded-3xl overflow-hidden">
         {/* Top nav */}
-        <div className="flex items-center justify-between px-4 py-2 md:px-6 md:py-4 border-b border-[#dee4ed30]">
+        <div className="flex items-center justify-between px-2 py-1 mt-2 sm:px-4 sm:py-2 md:px-6 md:py-4 border-b border-[#dee4ed30] rounded-3xl ">
           <Logo />
-          <div className="flex items-center gap-2 md:gap-3">
-            <Button className="bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white rounded-full px-3 py-1.5 md:px-4 md:py-2 flex items-center gap-1.5 text-xs md:text-sm">
-              <CloudLightningIcon className="w-4 h-4 md:w-5 md:h-5" />
-              Nâng cấp
+          <div className="flex items-center gap-1.5 sm:gap-1.5 md:gap-3 mt-1 sm:mt-0 ">
+            {/* Upgrade button */}
+            <Button
+              className="flex items-center justify-center rounded-full 
+             w-9 h-9 sm:w-auto sm:h-auto
+             bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] 
+             text-white text-xs font-semibold gap-1 sm:gap-1.5 px-0 sm:px-4 sm:py-2"
+            >
+              <CloudLightningIcon className="w-4 h-4 mr-1 sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline">Nâng cấp</span>
             </Button>
+
+            {/* Icon buttons */}
             {topNav.map((Icon, i) => (
               <Button
                 key={i}
                 size="sm"
                 variant="ghost"
-                className="rounded-full bg-black/5 backdrop-blur-md w-9 h-9 md:w-10 md:h-10 flex items-center justify-center"
+                className="rounded-full w-9 h-9 flex items-center justify-center bg-black/5 backdrop-blur-md"
               >
-                <Icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-1" />
+                <Icon className="w-5 h-5 text-neutral-1" />
               </Button>
             ))}
-            <Avatar className="bg-primary-2 w-9 h-9 md:w-10 md:h-10">
-              <AvatarFallback className="text-white font-semibold text-sm md:text-base">
+
+            {/* Avatar */}
+            <Avatar className="bg-primary-2 w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10">
+              <AvatarFallback className="text-white font-semibold text-[10px] sm:text-sm md:text-base">
                 T
               </AvatarFallback>
             </Avatar>
@@ -111,15 +120,14 @@ export function FeaturesSection() {
         </div>
 
         {/* Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[304px_1fr_304px] gap-4 lg:gap-6 p-4 md:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(250px,304px)_1fr_minmax(250px,304px)] gap-4 lg:gap-6 p-4 md:p-6">
           {/* Left Sidebar */}
-          <Card className="h-[300px] lg:h-[739px]">
+          <Card className="hidden lg:block h-auto lg:h-[739px] rounded-3xl">
             <Card.Content className="flex flex-col h-full p-3 lg:p-4 gap-3 lg:gap-4">
-              <div className="flex justify-between items-center border-b pb-2 text-sm font-semibold text-neutral-1">
+              <div className="flex justify-between items-center border-b pb-2 text-sm font-semibold text-neutral-1 ">
                 Dữ liệu
                 <PanelRight className="w-4 h-4" />
               </div>
-
               <div className="flex gap-2">
                 <Button
                   variant="outline"
@@ -134,12 +142,10 @@ export function FeaturesSection() {
                   <StarIcon className="w-4 h-4 mr-1" /> Khám phá
                 </Button>
               </div>
-
               <div className="flex items-center gap-2 border px-2 py-1.5 rounded-md text-sm">
                 <SearchIcon className="w-4 h-4 text-neutral-3" />
                 <span className="text-neutral-3">Tìm kiếm</span>
               </div>
-
               <div className="flex flex-col gap-2 overflow-y-auto text-xs">
                 {dataFiles.map((file, i) => (
                   <div
@@ -168,7 +174,7 @@ export function FeaturesSection() {
           </Card>
 
           {/* Chat Section */}
-          <Card className="h-[400px] lg:h-[739px]">
+          <Card className="h-auto lg:h-[739px] rounded-3xl">
             <Card.Content className="flex flex-col h-full">
               <div className="flex justify-between items-center border-b px-3 py-2 text-sm">
                 <h3 className="font-semibold text-neutral-1">Chat</h3>
@@ -183,10 +189,9 @@ export function FeaturesSection() {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
+              <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-[70vh]">
                 {messages.length === 0 ? (
                   <div className="flex flex-col flex-1 justify-center items-center gap-6 text-center">
-                    {/* Welcome */}
                     <div className="flex flex-col items-center gap-4">
                       <Image
                         src="/images/logo_icon.svg"
@@ -199,15 +204,13 @@ export function FeaturesSection() {
                         Chào mừng đến với Antco AI!
                       </span>
                     </div>
-
-                    {/* Input ngay dưới welcome */}
-                    <div className="flex items-center gap-2 border rounded-lg px-3 py-2 w-full max-w-[600px] text-sm bg-white">
+                    <div className="flex items-center border gap-2 rounded-lg px-3 py-2 w-full max-w-[600px] text-sm bg-white">
                       <Input
                         placeholder="Start typing..."
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                        className="border-none focus:ring-0 text-sm flex-1"
+                        className="flex-1 text-sm border-0 ring-0 outline-none shadow-none focus:border-0 focus:ring-0 focus:outline-none focus-visible:ring-0"
                       />
                       <Button
                         size="sm"
@@ -244,13 +247,13 @@ export function FeaturesSection() {
 
               {/* Input khi đã có chat */}
               {messages.length > 0 && (
-                <div className="flex items-center gap-2 border rounded-lg px-3 py-2 mt-auto mx-3 mb-3 text-sm bg-white">
+                <div className="flex items-center gap-2 px-3 py-2 mt-auto mx-3 mb-3 text-sm bg-white rounded-lg">
                   <Input
                     placeholder="Start typing..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                    className="border-none focus:ring-0 text-sm flex-1"
+                    className="flex-1 text-sm border-0 ring-0 outline-none shadow-none focus:border-0 focus:ring-0 focus:outline-none focus-visible:ring-0"
                   />
                   <Button
                     size="sm"
@@ -270,7 +273,7 @@ export function FeaturesSection() {
           </Card>
 
           {/* Right Sidebar */}
-          <Card className="h-auto lg:h-[739px]">
+          <Card className="hidden lg:block h-auto lg:h-[739px] rounded-3xl">
             <Card.Content className="flex flex-col h-full p-0">
               {/* Header bar */}
               <div className="flex items-center justify-between w-full px-5 py-4 bg-white border-b border-[#CFDBEB]">
@@ -279,7 +282,6 @@ export function FeaturesSection() {
                 </h3>
                 <MoreHorizontalIcon className="w-5 h-5 text-[#112639]" />
               </div>
-
               {/* Tool list */}
               <div className="flex flex-col items-center w-full px-4 py-5 gap-6 bg-white">
                 <div className="grid grid-cols-2 gap-3 w-full max-w-[272px]">
@@ -288,7 +290,6 @@ export function FeaturesSection() {
                       key={i}
                       className="relative flex flex-col items-start p-3 gap-2 w-full bg-white rounded-lg shadow-sm border border-[#F0F3F8]"
                     >
-                      {/* Icon container */}
                       <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-sm">
                         <Image
                           src={t.icon}
@@ -298,20 +299,16 @@ export function FeaturesSection() {
                           className="w-5 h-5"
                         />
                       </div>
-                      {/* Title */}
                       <span className="text-[14px] font-semibold text-[#112639]">
                         {t.title}
                       </span>
-
-                      {/* background blur accent */}
                       <div className="absolute -top-10 -left-10 w-[120px] h-[120px] bg-[#2B90FA12] blur-[40px] -z-10" />
                     </div>
                   ))}
                 </div>
               </div>
-
               {/* Progress section */}
-              <div className="px-5 py-4 space-y-3 bg-white">
+              <div className="px-5 py-4 space-y-3 bg-white rounded-3xl">
                 <h4 className="font-semibold text-[14px] text-[#112639]">
                   Tiến trình (1)
                 </h4>
@@ -331,7 +328,6 @@ export function FeaturesSection() {
                   </div>
                 </div>
               </div>
-
               {/* Notes section */}
               <div className="px-5 py-4 space-y-2 bg-white">
                 <div className="flex items-center justify-between">

@@ -1,8 +1,10 @@
 // app/components/sections/mission-section.tsx
+"use client";
+
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Amphora } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -21,132 +23,158 @@ const techItems = [
 
 export function MissionSection() {
   return (
-    <section
-      className="
-        bg-white
-        /* Figma: padding 100px 200px → responsive bằng clamp */
-        py-[clamp(48px,8vw,100px)]
-      "
+    <motion.section
+      className="bg-white py-[clamp(48px,8vw,100px)]"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div
-        className="
-          mx-auto w-full
-          max-w-[1920px]
-          /* Figma: px=200 → responsive với clamp */
-          px-[clamp(16px,8vw,200px)]
-        "
-      >
+      <div className="mx-auto w-full max-w-[1920px] px-[clamp(16px,8vw,200px)]">
         <div
           className="
-            flex flex-col lg:flex-row items-center
-            justify-center
+            flex flex-col lg:flex-row items-center justify-center
             gap-[clamp(32px,8vw,162px)]
-            /* Figma height 750: dùng min-h để co giãn */
             min-h-[clamp(560px,70vh,750px)]
           "
         >
+          {/* LEFT */}
           <div className="w-full lg:max-w-[743px] flex flex-col gap-10">
-            <h2
-              className="
-                text-[#0749AD] font-semibold leading-[130%]
-                text-[32px] md:text-[40px] lg:text-[56px]
-              "
+            <motion.h2
+              className="text-[#0749AD] font-semibold leading-[130%] text-[32px] md:text-[40px] lg:text-[56px]"
+              initial={{ opacity: 0, y: -40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
               Sứ mệnh của Antco <br className="hidden xl:block" />
               về công nghệ
-            </h2>
+            </motion.h2>
 
             <div className="flex flex-col gap-3">
-              <p className="text-[#112639] font-bold text-[20px] leading-[32px]">
+              <motion.p
+                className="text-[#112639] font-bold text-[20px] leading-[32px]"
+                initial={{ opacity: 0, y: -40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+              >
                 Sứ mệnh của Antco kiến tạo tương lai nền công nghệ Việt Nam, trở
                 thành cường quốc thế giới trong lĩnh vực công nghệ số.
-              </p>
-              <p className="text-[#7B849F] font-normal text-[20px] leading-[32px]">
+              </motion.p>
+              <motion.p
+                className="text-[#7B849F] font-normal text-[20px] leading-[32px]"
+                initial={{ opacity: 0, y: -40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+              >
                 Với đội ngũ chuyên gia giàu kinh nghiệm, chúng tôi mang đến
                 những giải pháp công nghệ thông minh, giúp chính phủ &amp; doanh
                 nghiệp nâng cao hiệu suất, bảo mật dữ liệu và phát triển bền
                 vững trong thời đại số.
-              </p>
+              </motion.p>
 
-              {/* Badges (Frame 251/252) */}
-              <div className="flex flex-wrap gap-3 pt-1">
-                {features.map((f) => (
-                  <Badge
+              {/* Badges */}
+              <div className="flex flex-col gap-3 pt-1">
+                {features.map((f, i) => (
+                  <motion.div
                     key={f.text}
-                    className="
-                      flex items-center gap-2 px-3 py-1.5
-                      bg-[#D8EFFF] text-[#0749AD] border-0 rounded-full
-                    "
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeOut",
+                      delay: 0.3 + i * 0.15,
+                    }}
                   >
-                    <Image src={f.icon} alt={f.text} width={24} height={24} />
-                    <span className="text-[16px] leading-[24px]">{f.text}</span>
-                  </Badge>
+                    <Badge
+                      className="flex w-fit items-center gap-2 px-3 py-1.5
+                                 bg-[#D8EFFF] text-[#0749AD] border-0 rounded-full"
+                    >
+                      <Image src={f.icon} alt={f.text} width={24} height={24} />
+                      <span className="text-[16px] leading-[24px]">
+                        {f.text}
+                      </span>
+                    </Badge>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-wrap items-start gap-4 pt-2">
-              <Button
-                withArrow
-                className="
-                  h-14 min-w-[127px] px-6 rounded-full text-white
-                  bg-[linear-gradient(96.96deg,#2BA9FA_0.85%,#1851C1_97.4%)]
-                  hover:opacity-90
-                  text-[16px] font-semibold leading-[24px]
-                "
-              >
-                Xem thêm
-              </Button>
+            {/* Buttons */}
+            <motion.div
+              className="flex flex-wrap items-start gap-4 pt-2"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }}>
+                <Button
+                  withArrow
+                  className="h-14 min-w-[127px] px-6 rounded-full text-white
+                             bg-[linear-gradient(96.96deg,#2BA9FA_0.85%,#1851C1_97.4%)]
+                             hover:opacity-90
+                             text-[16px] font-semibold leading-[24px]"
+                >
+                  Xem thêm
+                </Button>
+              </motion.div>
 
-              <Button
-                withArrow
-                variant="ghost"
-                className="
-                  h-14 min-w-[184px]
-                  px-6 rounded-full
-                  font-inter font-semibold text-[16px] leading-6
-                  text-[#1792ED] border border-[#1792ED] bg-white
-                "
-              >
-                Nhận tư vấn ngay
-              </Button>
-            </div>
+              <motion.div whileHover={{ scale: 1.05 }}>
+                <Button
+                  withArrow
+                  variant="ghost"
+                  className="h-14 min-w-[184px] px-6 rounded-full
+                             font-inter font-semibold text-[16px] leading-6
+                             text-[#1792ED] border border-[#1792ED] bg-white"
+                >
+                  Nhận tư vấn ngay
+                </Button>
+              </motion.div>
+            </motion.div>
           </div>
 
-          {/* RIGHT – Group 633103: 541x541, grid 2x2 */}
+          {/* RIGHT – Tiles */}
           <div className="w-full lg:max-w-[541px] mx-auto lg:mx-0">
             <div className="grid grid-cols-2 gap-6 aspect-square">
-              {techItems.map((item) => (
-                <div
+              {techItems.map((item, i) => (
+                <motion.div
                   key={item.label}
                   className="relative overflow-hidden aspect-square"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    ease: "easeOut",
+                    delay: 0.7 + i * 0.15,
+                  }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
                 >
-                  {/* Union tile + overlay (giữ object-cover để giống mask Figma) */}
                   <Image
                     src={item.src}
                     alt={item.label}
                     fill
                     className="object-cover"
                   />
-
-                  {/* Donut ring border 28, ~56% kích thước ô */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-[56%] aspect-square rounded-full border-[28px] border-white" />
                   </div>
-
-                  {/* Label – Commissioner 26.9 ~ 27px, 130% */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="font-[Commissioner] font-medium text-[#112639] text-[clamp(18px,2vw,27px)] leading-[130%]">
                       {item.label}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
           {/* /RIGHT */}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -65,10 +65,10 @@ const solutionCards: SolutionCard[] = [
 
 export function SolutionsSection() {
   return (
-    <section className="w-full bg-white px-4 md:px-8 lg:px-[200px] py-16 lg:py-[100px] flex flex-col items-center gap-16">
+    <section className="w-full bg-white px-4 md:px-8 lg:px-[200px] py-12 md:py-16 lg:py-[100px] flex flex-col items-center gap-12 md:gap-16 lg:gap-[60px]">
       {/* Header */}
-      <header className="max-w-[1005px] text-center flex flex-col gap-5">
-        <h2 className="text-[28px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
+      <header className="max-w-[1005px] text-center flex flex-col gap-3 md:gap-5">
+        <h2 className="text-[24px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
           Antco - Giải pháp công nghệ
         </h2>
         <p className="text-sm md:text-base lg:text-[20px] text-[#7B849F] leading-[160%]">
@@ -77,21 +77,11 @@ export function SolutionsSection() {
         </p>
       </header>
 
-      <div className="w-full max-w-[1520px] flex flex-col gap-6 lg:gap-8">
-        {/* Hàng 1: 4 cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {solutionCards.slice(0, 4).map((card) => (
+      <div className="w-full max-w-[1520px] flex flex-col gap-6 lg:gap-8 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 ">
+          {solutionCards.map((card) => (
             <SolutionCard key={card.id} {...card} />
           ))}
-        </div>
-
-        {/* Hàng 2: căn giữa */}
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-center w-full max-w-[1140px]">
-            {solutionCards.slice(4).map((card) => (
-              <SolutionCard key={card.id} {...card} />
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -101,20 +91,20 @@ export function SolutionsSection() {
 function SolutionCard({ icon, title, description }: SolutionCard) {
   return (
     <Card
-      hoverScale={1.1}
+      hoverScale={1.05}
       className="
-    relative isolate
-    flex flex-col items-start
-    p-8 gap-9
-    rounded-[32px]
-    bg-[rgba(43,144,250,0.07)] border-0 shadow-none
-    overflow-visible
-    lg:h-[380px]
-  "
+        relative isolate
+        flex flex-col items-start
+        p-6 md:p-7 lg:p-8 gap-6 md:gap-7 lg:gap-9
+        rounded-[24px] lg:rounded-[32px]
+       bg-[rgba(43,144,250,0.07)] border-2 shadow-none
+        overflow-visible
+        h-full
+      "
     >
-      <Card.Content className="p-0 flex flex-col gap-9 flex-1">
-        {/* Icon wrapper (Frame 178) */}
-        <div className="relative w-[100px] h-[100px] flex items-center justify-center rounded-full bg-white z-10">
+      <Card.Content className="p-0 flex flex-col gap-6 md:gap-7 lg:gap-9 flex-1">
+        {/* Icon wrapper */}
+        <div className="relative w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[100px] lg:h-[100px] flex items-center justify-center rounded-full bg-white z-10">
           <Image
             src={icon}
             alt={title}
@@ -124,12 +114,14 @@ function SolutionCard({ icon, title, description }: SolutionCard) {
           />
         </div>
 
-        {/* Text (Frame 179) */}
-        <div className="flex flex-col gap-4 flex-1">
-          <h3 className="text-[24px] leading-8 font-semibold text-[#112639]">
+        {/* Text */}
+        <div className="flex flex-col gap-2 md:gap-3 flex-1">
+          <h3 className="text-base md:text-lg lg:text-[24px] leading-6 md:leading-7 lg:leading-8 font-semibold text-[#112639]">
             {title}
           </h3>
-          <p className="text-[14px] leading-5 text-[#7B849F]">{description}</p>
+          <p className="text-sm md:text-[15px] lg:text-[14px] leading-5 md:leading-6 lg:leading-5 text-[#7B849F] flex-1">
+            {description}
+          </p>
         </div>
       </Card.Content>
     </Card>
