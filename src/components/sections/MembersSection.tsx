@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 
 type Member = {
   title: string;
@@ -35,6 +36,27 @@ const members: Member[] = [
     image: "/images/members/member_4.png",
   },
 ];
+
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      when: "beforeChildren",
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, x: -40 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: EASE_OUT },
+  },
+};
 
 export function MembersSection() {
   return (
@@ -75,33 +97,47 @@ export function MembersSection() {
         </p>
       </div>
 
-      {/* Grid */}
-      <div
+      {/* Grid + animation */}
+      <motion.div
         className="
-          grid gap-4 md:gap-6 lg:gap-8
-          grid-cols-2 lg:grid-cols-4
-          w-full max-w-[1520px]
-        "
+    grid gap-4 md:gap-6 lg:gap-8
+    grid-cols-2 xl:grid-cols-4
+    w-full max-w-[1520px]
+  "
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
       >
-        {members.map((m) => (
-          <article
+        {members.map((m, idx) => (
+          <motion.article
             key={m.name}
+            variants={itemVariants}
+            transition={{
+              duration: 0.55,
+              ease: EASE_OUT,
+              delay: idx * 0.03,
+            }}
             className="
               flex flex-col items-center gap-3 md:gap-6
-              w-full max-w-[182px] md:max-w-[356px] mx-auto
+              w-full
+              max-w-[220px] sm:max-w-[260px] md:max-w-[300px]
+              lg:max-w-[320px] xl:max-w-[356px]
+              mx-auto
             "
+            whileHover={{ y: -4 }}
           >
             {/* Card */}
             <div
               className="
                 relative w-full
-                h-[234px] md:h-[458px]
-                rounded-[16px] md:rounded-[32px]
+                h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px] xl:h-[458px]
+                rounded-[16px] md:rounded-[24px] xl:rounded-[32px]
                 overflow-hidden
                 bg-gradient-to-br from-[#EAF6FF] via-[#F9FCFF] to-white
               "
             >
-              {/* glow */}
+              {/* Glow */}
               <div
                 className="
                   absolute -left-[159px] -top-[178px]
@@ -111,12 +147,11 @@ export function MembersSection() {
                   md:w-[792px] md:h-[792px] md:blur-[200px]
                 "
               />
-
               <Image
                 src={m.image}
                 alt={m.name}
                 fill
-                sizes="(max-width: 768px) 45vw, (max-width: 1024px) 25vw, 356px"
+                sizes="(max-width: 768px) 45vw, (max-width: 1024px) 30vw, (max-width: 1280px) 25vw, 356px"
                 className="object-contain p-2 md:p-3"
               />
             </div>
@@ -156,9 +191,9 @@ export function MembersSection() {
                 {m.description}
               </p>
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
-import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+import { motion, animate, px } from "framer-motion";
 
 const navItems = [
   { label: "Trang chủ", href: "/" },
@@ -29,7 +29,10 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const [screenWidth, setScreenWidth] = useState(0);
+
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -45,8 +48,31 @@ export function Header() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target as Node)
+      ) {
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileOpen]);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const scrollToTop = () => {
+    const currentY = window.scrollY;
+    animate(currentY, 0, {
+      duration: 0.6,
+      ease: "easeInOut",
+      onUpdate: (latest) => window.scrollTo(0, latest),
+    });
+  };
 
   return (
     <motion.header
@@ -61,17 +87,12 @@ export function Header() {
           scrolled || mobileOpen
             ? "0 4px 16px rgba(0,0,0,0.1)"
             : "0 0 0 rgba(0,0,0,0)",
-        marginLeft: scrolled ? screenWidth * 0.02 : 0,
-        marginRight: scrolled ? screenWidth * 0.02 : 0,
-        marginTop: scrolled ? "0.75rem" : "0rem",
+        marginLeft: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
+        marginRight: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
+        marginTop: scrolled && screenWidth >= 1024 ? "20px" : 0,
       }}
-      transition={{ duration: 0.4, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
-    ${
-      mobileOpen
-        ? "rounded-t-xl sm:rounded-t-2xl md:rounded-t-3xl lg:rounded-[2.5rem]"
-        : "rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-[2.5rem]"
-    }`}
+  ${mobileOpen ? " lg:rounded-[2.5rem]" : "  lg:rounded-[2.5rem]"}`}
     >
       <motion.div
         className={`flex items-center justify-between h-[72px] lg:h-[96px]
@@ -80,8 +101,21 @@ export function Header() {
     `}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        {/* Logo */}
-        <Logo className="h-8 lg:h-10 w-auto" />
+        {/* Logo → giữ scrollToTop */}
+        <Link
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            if (pathname === "/") {
+              scrollToTop();
+            } else {
+              router.push("/");
+            }
+            setMobileOpen(false);
+          }}
+        >
+          <Logo className="h-8 lg:h-10 w-auto cursor-pointer" />
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 relative">
@@ -109,7 +143,6 @@ export function Header() {
                     />
                   </button>
 
-                  {/* Submenu */}
                   {activeDropdown === index && (
                     <ul
                       className="absolute top-full left-0 mt-2 w-56 bg-white shadow-lg rounded-lg py-2 z-50 border-[1px] border-[#C2D9FF]"
@@ -132,6 +165,7 @@ export function Header() {
               ) : (
                 <Link
                   href={item.href}
+                  onClick={() => setMobileOpen(false)}
                   className={`flex items-center gap-2 text-[16px] leading-6 whitespace-nowrap
             ${
               isActive(item.href)
@@ -167,13 +201,10 @@ export function Header() {
         </button>
       </motion.div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation (no animation) */}
       {mobileOpen && (
-        <motion.nav
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+        <div
+          ref={mobileMenuRef}
           className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-lg rounded-b-xl"
         >
           <ul className="flex flex-col p-4 gap-3">
@@ -202,12 +233,12 @@ export function Header() {
                 ) : (
                   <Link
                     href={item.href}
+                    onClick={() => setMobileOpen(false)}
                     className={`block py-2 px-2 rounded-md ${
                       isActive(item.href)
                         ? "font-semibold text-[#112639]"
                         : "font-normal text-[#112639]"
                     }`}
-                    onClick={() => setMobileOpen(false)}
                   >
                     {item.label}
                   </Link>
@@ -215,7 +246,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-        </motion.nav>
+        </div>
       )}
     </motion.header>
   );

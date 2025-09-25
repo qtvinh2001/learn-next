@@ -11,7 +11,8 @@ type SolutionCard = {
   description: string;
 };
 
-const solutionCards: SolutionCard[] = [
+// 7 cards cho tab "Sản phẩm"
+const productCards: SolutionCard[] = [
   {
     id: 1,
     icon: "/images/report.svg",
@@ -63,26 +64,81 @@ const solutionCards: SolutionCard[] = [
   },
 ];
 
+const solutionCards: SolutionCard[] = [
+  {
+    id: 8,
+    icon: "/images/report.svg",
+    title: "Tư vấn & Thực hiện Chuyển Đổi Số",
+    description:
+      "Dịch vụ tư vấn và triển khai chuyển đổi số, giúp doanh nghiệp tích hợp AI và công nghệ mới vào hệ thống hiện tại để nâng cao hiệu quả.",
+  },
+  {
+    id: 9,
+    icon: "/images/web.svg",
+    title: "Giải pháp & Hạ tầng AI & IOT",
+    description:
+      "Xây dựng nền tảng AI và IOT hiện đại, hỗ trợ doanh nghiệp khai thác dữ liệu và tối ưu vận hành dựa trên công nghệ tiên tiến.",
+  },
+  {
+    id: 10,
+    icon: "/images/cloud.svg",
+    title: "Nền tảng & Dịch vụ Hybrid Cloud",
+    description:
+      "Cung cấp nền tảng đám mây lai, kết hợp linh hoạt giữa private cloud và public cloud, đảm bảo tính bảo mật, tiết kiệm chi phí và dễ dàng mở rộng.",
+  },
+];
+
 export function SolutionsSection() {
+  const [activeTab, setActiveTab] = React.useState<"product" | "solution">(
+    "product"
+  );
+
+  const cards = activeTab === "product" ? productCards : solutionCards;
+
   return (
     <section className="w-full bg-white px-4 md:px-8 lg:px-[200px] py-12 md:py-16 lg:py-[100px] flex flex-col items-center gap-12 md:gap-16 lg:gap-[60px]">
       {/* Header */}
       <header className="max-w-[1005px] text-center flex flex-col gap-3 md:gap-5">
         <h2 className="text-[24px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
-          Antco - Giải pháp công nghệ
+          {activeTab === "product"
+            ? "Antco - Dịch vụ & Giải pháp"
+            : "Antco - Giải pháp công nghệ"}
         </h2>
         <p className="text-sm md:text-base lg:text-[20px] text-[#7B849F] leading-[160%]">
           Antco cung cấp các giải pháp AI thiết thực thúc đẩy tăng trưởng kinh
           doanh.
         </p>
+
+        {/* Tabs */}
+        <div className="flex gap-4 justify-center mt-4">
+          <button
+            onClick={() => setActiveTab("product")}
+            className={`px-6 py-3 rounded-full font-semibold text-base ${
+              activeTab === "product"
+                ? "bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white"
+                : "text-[#1792ED] "
+            }`}
+          >
+            Sản phẩm
+          </button>
+          <button
+            onClick={() => setActiveTab("solution")}
+            className={`px-6 py-3 rounded-full font-semibold text-base ${
+              activeTab === "solution"
+                ? "bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white"
+                : "text-[#1792ED] "
+            }`}
+          >
+            Giải pháp
+          </button>
+        </div>
       </header>
 
-      <div className="w-full max-w-[1520px] flex flex-col gap-6 lg:gap-8 justify-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 ">
-          {solutionCards.map((card) => (
-            <SolutionCard key={card.id} {...card} />
-          ))}
-        </div>
+      {/* Cards grid */}
+      <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
+        {cards.map((card) => (
+          <SolutionCard key={card.id} {...card} />
+        ))}
       </div>
     </section>
   );
@@ -92,26 +148,12 @@ function SolutionCard({ icon, title, description }: SolutionCard) {
   return (
     <Card
       hoverScale={1.05}
-      className="
-        relative isolate
-        flex flex-col items-start
-        p-6 md:p-7 lg:p-8 gap-6 md:gap-7 lg:gap-9
-        rounded-[24px] lg:rounded-[32px]
-       bg-[rgba(43,144,250,0.07)] border-2 shadow-none
-        overflow-visible
-        h-full
-      "
+      className="relative isolate flex flex-col items-start p-6 md:p-7 lg:p-8 gap-6 md:gap-7 lg:gap-9 rounded-[24px] lg:rounded-[32px] bg-[rgba(43,144,250,0.07)] border-2 shadow-none h-full"
     >
       <Card.Content className="p-0 flex flex-col gap-6 md:gap-7 lg:gap-9 flex-1">
-        {/* Icon wrapper */}
-        <div className="relative w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[100px] lg:h-[100px] flex items-center justify-center rounded-full bg-white z-10">
-          <Image
-            src={icon}
-            alt={title}
-            width={56}
-            height={56}
-            className="object-contain"
-          />
+        {/* Icon */}
+        <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[100px] lg:h-[100px] flex items-center justify-center rounded-full bg-white z-10">
+          <Image src={icon} alt={title} width={56} height={56} />
         </div>
 
         {/* Text */}

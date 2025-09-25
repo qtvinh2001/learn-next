@@ -39,12 +39,13 @@ export function AboutUsSection() {
           className="
           absolute z-10
           bottom-0 left-1/2 -translate-x-1/2
-          w-[80%] max-w-[420px]
-          sm:-bottom-32                          
-          md:bottom-0
-          lg:top-1/2 lg:-bottom-28 lg:right-10 lg:left-auto
+           w-[55%] max-w-[260px]          /* Mobile nhỏ hơn */
+      sm:w-[50%] sm:max-w-[300px]    /* Tablet */
+      md:w-[20%] md:max-w-[340px]    /* Medium */
+          md:left-auto md:right-6 md:translate-x-0  /* Tablet trở lên cube nằm bên phải */
+          lg:top-1/2 lg:right-10 lg:left-auto
           lg:-translate-y-1/2 lg:translate-x-0
-          lg:w-[28%] lg:max-w-none
+           lg:w-[28%] lg:max-w-[400px]   /* Desktop: vẫn ở phải, gọn hơn */
         "
         >
           <Image

@@ -55,7 +55,7 @@ function LogoItem({
           h-6 sm:h-8 md:h-10 lg:h-12
           w-auto
         "
-        onLoadingComplete={onLoaded}
+        onLoad={onLoaded}
       />
     </div>
   );

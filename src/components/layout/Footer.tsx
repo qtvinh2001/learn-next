@@ -38,8 +38,8 @@ export function Footer() {
     <footer className="w-full">
       {/* TOP AREA */}
       <div className="bg-white">
-        <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 py-10 lg:py-12 2xl:py-0 relative">
-          {/* GRID cho lg–xl */}
+        <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 py-10 lg:py-12 relative">
+          {/* GRID cho mobile–xl */}
           <div className="lg:grid 2xl:hidden grid-cols-1 lg:grid-cols-[360px_1fr] gap-12">
             {/* Left */}
             <div className="flex flex-col items-start gap-6">
@@ -83,19 +83,19 @@ export function Footer() {
             </div>
           </div>
 
-          {/* 2XL absolute layout theo Figma nhưng responsive */}
+          {/* 2XL absolute layout Figma (khóa ở 1920px) */}
           <div className="hidden 2xl:block relative w-full max-w-[1920px] h-[396px] mx-auto">
             {/* Logo */}
-            <div className="absolute left-[10vw] top-[82px]">
+            <div className="absolute left-[200px] top-[82px]">
               <Logo className="h-14 w-auto" />
             </div>
             {/* Desc */}
-            <p className="absolute left-[10vw] top-[165px] max-w-[318px] text-[#7B849F] text-[16px] leading-6">
+            <p className="absolute left-[200px] top-[165px] max-w-[318px] text-[#7B849F] text-[16px] leading-6">
               Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
               nhân tạo với giải pháp tùy chỉnh
             </p>
             {/* Social */}
-            <div className="absolute left-[10vw] top-[274px] flex gap-4">
+            <div className="absolute left-[200px] top-[274px] flex gap-4">
               {socialIcons.map((icon) => (
                 <Image
                   key={icon.alt}
@@ -108,7 +108,7 @@ export function Footer() {
               ))}
             </div>
             {/* Links */}
-            <div className="absolute right-[10vw] top-[82px] flex gap-[6vw]">
+            <div className="absolute right-[200px] top-[82px] flex gap-[100px]">
               {cols.map((col) => (
                 <div key={col.title} className="flex flex-col gap-4">
                   <h3 className="text-[#112639] font-semibold text-[24px] leading-8">
@@ -135,16 +135,17 @@ export function Footer() {
       <div className="w-full bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] py-4 lg:py-6">
         <div
           className="
-            w-full max-w-[1920px] mx-auto
-            px-4 sm:px-6 lg:px-[clamp(40px,10vw,170px)]
-            flex flex-col items-start gap-2
-            sm:flex-row sm:items-center sm:justify-between
-          "
+      w-full max-w-[1920px] mx-auto
+      px-4 sm:px-6 lg:px-10
+      flex flex-col items-center justify-center gap-2
+      text-center
+      sm:flex-row sm:items-center sm:justify-between sm:text-left
+    "
         >
           <p className="text-white text-sm">
             © 2025 Antco, Inc. | All rights reserved
           </p>
-          <div className="flex items-center gap-6 text-white text-sm">
+          <div className="flex items-center justify-center gap-6 text-white text-sm">
             {bottomLinks.map((l) => (
               <span key={l} className="cursor-pointer hover:underline">
                 {l}
